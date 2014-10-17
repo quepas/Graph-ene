@@ -39,7 +39,7 @@ private:
 };
 
 template <typename T>
-bool Graphene::AdjacencyMatrixGraph<T>::IsNodeExsist(unsigned node)
+bool AdjacencyMatrixGraph<T>::IsNodeExsist(unsigned node)
 {
   if (IsCorrectNode(node)) {
     auto idx = NodeToIndex(node);
@@ -49,7 +49,7 @@ bool Graphene::AdjacencyMatrixGraph<T>::IsNodeExsist(unsigned node)
 }
 
 template <typename T>
-bool Graphene::AdjacencyMatrixGraph<T>::IsEdgeExsist(unsigned base_node, unsigned target_node)
+bool AdjacencyMatrixGraph<T>::IsEdgeExsist(unsigned base_node, unsigned target_node)
 {
   if (IsNodeExsist(base_node) && IsNodeExsist(target_node)) {
     return matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] != 0;
@@ -58,7 +58,7 @@ bool Graphene::AdjacencyMatrixGraph<T>::IsEdgeExsist(unsigned base_node, unsigne
 }
 
 template <typename T>
-void Graphene::AdjacencyMatrixGraph<T>::ResizeMatrix(std::size_t capacity)
+void AdjacencyMatrixGraph<T>::ResizeMatrix(std::size_t capacity)
 {
   capacity_ = capacity;
   matrix_.resize(capacity_);
@@ -71,19 +71,19 @@ void Graphene::AdjacencyMatrixGraph<T>::ResizeMatrix(std::size_t capacity)
 }
 
 template <typename T>
-std::vector<Edge<T>> Graphene::AdjacencyMatrixGraph<T>::GetIncidentEdges(unsigned node)
+std::vector<Edge<T>> AdjacencyMatrixGraph<T>::GetIncidentEdges(unsigned node)
 {
   return std::vector<Edge<T>>();
 }
 
 template <typename T>
-std::vector<unsigned> Graphene::AdjacencyMatrixGraph<T>::GetNeighbours(unsigned node)
+std::vector<unsigned> AdjacencyMatrixGraph<T>::GetNeighbours(unsigned node)
 {
   return std::vector<unsigned>();
 }
 
 template <typename T>
-bool Graphene::AdjacencyMatrixGraph<T>::RemoveEdge(unsigned base_node, unsigned target_node)
+bool AdjacencyMatrixGraph<T>::RemoveEdge(unsigned base_node, unsigned target_node)
 {
   if (IsEdgeExsist(base_node, target_node)) {
     matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] = 0;
@@ -92,7 +92,7 @@ bool Graphene::AdjacencyMatrixGraph<T>::RemoveEdge(unsigned base_node, unsigned 
 }
 
 template <typename T>
-bool Graphene::AdjacencyMatrixGraph<T>::AddEdge(unsigned base_node, unsigned target_node)
+bool AdjacencyMatrixGraph<T>::AddEdge(unsigned base_node, unsigned target_node)
 {
   if (IsNodeExsist(base_node) && IsNodeExsist(target_node)) {
     matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] = 1;
@@ -101,7 +101,7 @@ bool Graphene::AdjacencyMatrixGraph<T>::AddEdge(unsigned base_node, unsigned tar
 }
 
 template <typename T>
-bool Graphene::AdjacencyMatrixGraph<T>::RemoveNode(unsigned node)
+bool AdjacencyMatrixGraph<T>::RemoveNode(unsigned node)
 {
   if (IsNodeExsist(node)) {
     auto idx = NodeToIndex(node);
@@ -120,7 +120,7 @@ bool Graphene::AdjacencyMatrixGraph<T>::RemoveNode(unsigned node)
 }
 
 template <typename T>
-bool Graphene::AdjacencyMatrixGraph<T>::AddNode(unsigned node)
+bool AdjacencyMatrixGraph<T>::AddNode(unsigned node)
 {
   if (IsCorrectNode(node)) {
     auto idx = NodeToIndex(node);
