@@ -28,8 +28,6 @@ public:
   virtual std::size_t GetEdgeCount() const = 0;
   virtual std::size_t GetNodeCount() const = 0;
 
-  virtual bool InAdjacent(unsigned base_node, unsigned target_node) const = 0;
-
 };
 
 }
