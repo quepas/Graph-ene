@@ -1,2 +1,2 @@
-add_executable(Test ${SOURCE_FILE_LIST})
+add_executable(Test src/test.cpp)
 target_link_libraries(Test LINK_PUBLIC Graphene)
