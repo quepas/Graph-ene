@@ -18,7 +18,7 @@ public:
   std::vector<Edge> GetIncidentEdges(unsigned node) override;
 
   std::size_t GetEdgeCount() const override { return edge_count_; }
-  std::size_t GetNodeCount() const override { return node_count_; }
+  std::size_t GetNodeCount() const override;
   std::size_t GetCapacity() const { return capacity_; }
   const std::vector<std::vector<unsigned>>& matrix() const { return matrix_; }
 
@@ -28,7 +28,6 @@ public:
 
 private:
   std::size_t edge_count_;
-  std::size_t node_count_;
   std::size_t capacity_;
 
   std::vector<std::vector<unsigned>> matrix_;
@@ -36,6 +35,7 @@ private:
   void ResizeMatrix(std::size_t capacity);
   unsigned NodeToIndex(unsigned node) { return node - 1; }
   unsigned IndexToNode(unsigned index) { return index + 1; }
+
 };
 
 }

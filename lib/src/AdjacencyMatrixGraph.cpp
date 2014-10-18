@@ -102,5 +102,16 @@ bool AdjacencyMatrixGraph::AddNode(unsigned node)
   return false;
 }
 
+size_t AdjacencyMatrixGraph::GetNodeCount() const
+{
+  size_t count = 0;
+  for (unsigned idx = 0; idx < capacity_; ++idx) {
+    if (matrix_[idx][idx] == 1) {
+      ++count;
+    }
+  }
+  return count;
+}
+
 }
 // ~~ Graphene::AdjacencyMatrixGraph
