@@ -4,7 +4,7 @@
 #include "AdjacencyMatrixGraph.h"
 
 int main() {
-  Graphene::AdjacencyMatrixGraph<int> graph;
+  Graphene::AdjacencyMatrixGraph graph;
 
   graph.AddNode(3);
   graph.AddNode(6);

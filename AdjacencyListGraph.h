@@ -4,15 +4,9 @@
 
 namespace Graphene {
 
-template <typename T>
-class AdjacencyListGraph : public BaseGraph<T>
+class AdjacencyListGraph : public BaseGraph
 {
 public:
-  struct Node {
-    T value;
-    std::vector<Node*> neighbours;
-  };
-
 
 };
 

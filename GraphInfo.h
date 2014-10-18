@@ -6,13 +6,11 @@
 
 namespace Graphene {
 
-template <typename T>
-void PrintAdjacencyMatrix(const AdjacencyMatrixGraph<T>& graph);
+void PrintAdjacencyMatrix(const AdjacencyMatrixGraph& graph);
 
 void PrintNodes(const std::vector<unsigned>& nodes);
 
-template <typename T>
-void PrintAdjacencyMatrix(const AdjacencyMatrixGraph<T>& graph)
+void PrintAdjacencyMatrix(const AdjacencyMatrixGraph& graph)
 {
   auto matrix = graph.matrix();
   for (auto& row : matrix) {
