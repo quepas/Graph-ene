@@ -14,12 +14,11 @@ int main() {
   graph.AddEdge(6, 3, 32);
   std::cout << "\nEdge 6-3: " << graph.IsEdgeExsist(6, 3);
   std::cout << "\nNode 3: " << graph.IsNodeExsist(3) << std::endl;
-  //graph.RemoveNode(3);
+  graph.RemoveNode(3);
   std::cout << "\nNode 3: " << graph.IsNodeExsist(3) << std::endl;
   graph.AddNode(9);
   std::cout << "Neighbours: ";
   Graphene::PrintNodes(graph.GetNeighbours(3));
 
   Graphene::PrintAdjacencyMatrix(graph);
-  getchar();
 }
