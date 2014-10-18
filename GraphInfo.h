@@ -9,10 +9,10 @@ namespace Graphene {
 template <typename T>
 void PrintAdjacencyMatrix(const AdjacencyMatrixGraph<T>& graph);
 
-}
+void PrintNodes(const std::vector<unsigned>& nodes);
 
 template <typename T>
-void Graphene::PrintAdjacencyMatrix(const AdjacencyMatrixGraph<T>& graph)
+void PrintAdjacencyMatrix(const AdjacencyMatrixGraph<T>& graph)
 {
   auto matrix = graph.matrix();
   for (auto& row : matrix) {
@@ -23,4 +23,13 @@ void Graphene::PrintAdjacencyMatrix(const AdjacencyMatrixGraph<T>& graph)
   }
 }
 
+void PrintNodes(const std::vector<unsigned>& nodes)
+{
+  for (auto node : nodes) {
+    std::cout << node << " ";
+  }
+  std::cout << std::endl;
+}
+
+}
 // ~~ Graphene::GraphInfo

@@ -20,7 +20,7 @@ public:
 
   virtual bool AddNode(unsigned node) = 0;
   virtual bool RemoveNode(unsigned node) = 0;
-  virtual bool AddEdge(unsigned base_node, unsigned target_node) = 0;
+  virtual bool AddEdge(unsigned base_node, unsigned target_node, int value) = 0;
   virtual bool RemoveEdge(unsigned base_node, unsigned target_node) = 0;
   virtual std::vector<unsigned> GetNeighbours(unsigned node) = 0;
   virtual std::vector<Edge<T>> GetIncidentEdges(unsigned node) = 0;

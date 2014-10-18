@@ -13,7 +13,7 @@ public:
 
   bool AddNode(unsigned node) override;
   bool RemoveNode(unsigned node) override;
-  bool AddEdge(unsigned base_node, unsigned target_node) override;
+  bool AddEdge(unsigned base_node, unsigned target_node, int value) override;
   bool RemoveEdge(unsigned base_node, unsigned target_node) override;
   std::vector<unsigned> GetNeighbours(unsigned node) override;
   std::vector<Edge<T>> GetIncidentEdges(unsigned node) override;
@@ -36,6 +36,7 @@ private:
 
   void ResizeMatrix(std::size_t capacity);
   unsigned NodeToIndex(unsigned node) { return node - 1; }
+  unsigned IndexToNode(unsigned index) { return index + 1; }
 };
 
 template <typename T>
@@ -79,7 +80,17 @@ std::vector<Edge<T>> AdjacencyMatrixGraph<T>::GetIncidentEdges(unsigned node)
 template <typename T>
 std::vector<unsigned> AdjacencyMatrixGraph<T>::GetNeighbours(unsigned node)
 {
-  return std::vector<unsigned>();
+  std::vector<unsigned> result;
+  if (IsNodeExsist(node)) {
+    auto idx = NodeToIndex(node);
+    auto& row = matrix_[idx];
+    for (unsigned i = 0; i < row.size(); ++i) {
+      if (i != idx && row[i] != 0) {
+        result.push_back(IndexToNode(i));
+      }
+    }
+  }
+  return result;
 }
 
 template <typename T>
@@ -87,15 +98,17 @@ bool AdjacencyMatrixGraph<T>::RemoveEdge(unsigned base_node, unsigned target_nod
 {
   if (IsEdgeExsist(base_node, target_node)) {
     matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] = 0;
+    --edge_count_;
   }
   return false;
 }
 
 template <typename T>
-bool AdjacencyMatrixGraph<T>::AddEdge(unsigned base_node, unsigned target_node)
+bool AdjacencyMatrixGraph<T>::AddEdge(unsigned base_node, unsigned target_node, int value)
 {
   if (IsNodeExsist(base_node) && IsNodeExsist(target_node)) {
-    matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] = 1;
+    matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] = value;
+    ++edge_count_;
   }
   return false;
 }
@@ -114,6 +127,7 @@ bool AdjacencyMatrixGraph<T>::RemoveNode(unsigned node)
     for (auto& row : matrix_) {
       row[idx] = 0;
     }
+    --node_count_;
     return true;
   }
   return false;
@@ -125,6 +139,7 @@ bool AdjacencyMatrixGraph<T>::AddNode(unsigned node)
   if (IsCorrectNode(node)) {
     auto idx = NodeToIndex(node);
     matrix_[idx][idx] = 1;
+    ++node_count_;
     return true;
   }
   return false;
