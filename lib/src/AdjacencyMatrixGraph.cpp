@@ -85,7 +85,6 @@ bool AdjacencyMatrixGraph::RemoveNode(unsigned node)
     for (auto& row : matrix_) {
       row[idx] = 0;
     }
-    --node_count_;
     return true;
   }
   return false;
@@ -96,7 +95,6 @@ bool AdjacencyMatrixGraph::AddNode(unsigned node)
   if (IsCorrectNode(node)) {
     auto idx = NodeToIndex(node);
     matrix_[idx][idx] = 1;
-    ++node_count_;
     return true;
   }
   return false;

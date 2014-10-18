@@ -7,8 +7,8 @@ namespace Graphene {
 class AdjacencyMatrixGraph : public BaseGraph
 {
 public:
-  AdjacencyMatrixGraph() : capacity_(10), edge_count_(0), node_count_(0) { ResizeMatrix(capacity_); };
-  //AdjacencyMatrixGraph(std::size_t capacity) : capacity_(capacity), edge_count_(0), node_count_(0) {};
+  AdjacencyMatrixGraph() : capacity_(10), edge_count_(0) { ResizeMatrix(capacity_); };
+  //AdjacencyMatrixGraph(std::size_t capacity) : capacity_(capacity), edge_count_(0) {};
 
   bool AddNode(unsigned node) override;
   bool RemoveNode(unsigned node) override;
