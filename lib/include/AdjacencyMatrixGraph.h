@@ -31,7 +31,7 @@ public:
   std::size_t GetCapacity() const { return capacity_; }
   const std::vector<std::vector<int>>& matrix() const { return matrix_; }
 
-  bool IsCorrectNodeIdx(unsigned node) const { return node >= 0 && node < capacity_; }
+  bool IsCorrectNodeIdx(unsigned node) const { return node < capacity_; }
   bool IsNodeExsist(unsigned node) const;
   bool IsEdgeExsist(unsigned base_node, unsigned target_node);
 
