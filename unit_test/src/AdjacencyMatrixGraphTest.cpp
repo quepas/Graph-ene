@@ -13,12 +13,15 @@ TEST_CASE("Basic graph manipulation") {
     graph.AddNode(2);
     graph.AddNode(3);
     REQUIRE(graph.GetNodeCount() == 3);
+    REQUIRE(graph.IsNodeExsist(-1) == false);
     REQUIRE(graph.IsNodeExsist(1));
     REQUIRE(graph.IsNodeExsist(2));
     REQUIRE(graph.IsNodeExsist(3));
     REQUIRE(graph.IsNodeExsist(4) == false);
-    graph.RemoveNode(1);
-    graph.RemoveNode(4);
+    REQUIRE(graph.IsNodeExsist(AdjacencyMatrixGraph::INITIAL_CAPACITY) == false);
+    REQUIRE(graph.RemoveNode(1));
+    REQUIRE(graph.RemoveNode(4) == false);
+    REQUIRE(graph.RemoveNode(-1) == false);
     REQUIRE(graph.GetNodeCount() == 2);
     REQUIRE(graph.IsNodeExsist(4) == false);
     graph.AddNode(1);

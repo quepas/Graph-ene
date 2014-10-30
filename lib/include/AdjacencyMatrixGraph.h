@@ -23,16 +23,16 @@ public:
   bool AddEdge(unsigned base_node, unsigned target_node, int weight) override;
   bool RemoveEdge(unsigned base_node, unsigned target_node) override;
 
-  std::vector<unsigned> GetNeighbours(unsigned node) override;
-  std::vector<Edge> GetIncidentEdges(unsigned node) override;
+  std::vector<unsigned> GetNeighbours(unsigned node) const override;
+  std::vector<Edge> GetIncidentEdges(unsigned node) const override;
 
   std::size_t GetEdgeCount() const override;
   std::size_t GetNodeCount() const override;
   std::size_t GetCapacity() const { return capacity_; }
   const std::vector<std::vector<int>>& matrix() const { return matrix_; }
 
-  bool IsCorrectNodeIdx(unsigned node) { return node >= 0 && node < capacity_; }
-  bool IsNodeExsist(unsigned node);
+  bool IsCorrectNodeIdx(unsigned node) const { return node >= 0 && node < capacity_; }
+  bool IsNodeExsist(unsigned node) const;
   bool IsEdgeExsist(unsigned base_node, unsigned target_node);
 
   static const int INFINITE = -1;

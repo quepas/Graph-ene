@@ -46,7 +46,7 @@ bool AdjacencyMatrixGraph::RemoveEdge(unsigned base_node, unsigned target_node)
   return false;
 }
 
-vector<unsigned> AdjacencyMatrixGraph::GetNeighbours(unsigned node)
+vector<unsigned> AdjacencyMatrixGraph::GetNeighbours(unsigned node) const
 {
   vector<unsigned> result;
   if (IsNodeExsist(node)) {
@@ -61,7 +61,7 @@ vector<unsigned> AdjacencyMatrixGraph::GetNeighbours(unsigned node)
   return result;
 }
 
-vector<Edge> AdjacencyMatrixGraph::GetIncidentEdges(unsigned node)
+vector<Edge> AdjacencyMatrixGraph::GetIncidentEdges(unsigned node) const
 {
   return vector<Edge>();
 }
@@ -89,7 +89,7 @@ size_t AdjacencyMatrixGraph::GetEdgeCount() const
   return count;
 }
 
-bool AdjacencyMatrixGraph::IsNodeExsist(unsigned node)
+bool AdjacencyMatrixGraph::IsNodeExsist(unsigned node) const
 {
   if (IsCorrectNodeIdx(node)) {
     return matrix_[node][node] == NODE_EXSISTS;
