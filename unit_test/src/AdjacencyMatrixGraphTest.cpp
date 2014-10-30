@@ -54,4 +54,35 @@ TEST_CASE("Basic graph manipulation") {
     REQUIRE(graph.GetEdgeCount() == 1);
     REQUIRE(graph.IsEdgeExsist(3, 1) == false);
   }
+
+  SECTION("Checking existence and correctness of nodes/edges") {
+    AdjacencyMatrixGraph graph;
+
+    graph.AddNode(1);
+    graph.AddNode(3);
+    REQUIRE(graph.IsCorrectNodeIdx(-1) == false);
+    REQUIRE(graph.IsCorrectNodeIdx(0));
+    REQUIRE(graph.IsCorrectNodeIdx(1));
+    REQUIRE(graph.IsCorrectNodeIdx(2));
+    REQUIRE(graph.IsCorrectNodeIdx(3));
+    REQUIRE(graph.IsCorrectNodeIdx(AdjacencyMatrixGraph::INITIAL_CAPACITY) == false);
+
+    REQUIRE(graph.IsNodeExsist(-1) == false);
+    REQUIRE(graph.IsNodeExsist(1));
+    REQUIRE(graph.IsNodeExsist(2) == false);
+    REQUIRE(graph.IsNodeExsist(3));
+    REQUIRE(graph.IsNodeExsist(AdjacencyMatrixGraph::INITIAL_CAPACITY) == false);
+
+    REQUIRE(graph.IsEdgeExsist(-1, -1) == false);
+    REQUIRE(graph.IsEdgeExsist(1, 1) == false);
+    REQUIRE(graph.IsEdgeExsist(1, 3) == false);
+    REQUIRE(graph.IsEdgeExsist(3, 1) == false);
+    REQUIRE(graph.IsEdgeExsist(3, 3) == false);
+
+    graph.AddEdge(1, 3, 100);
+    REQUIRE(graph.IsEdgeExsist(1, 3));
+    REQUIRE(graph.IsEdgeExsist(1, 1) == false);
+    REQUIRE(graph.IsEdgeExsist(3, 1) == false);
+    REQUIRE(graph.IsEdgeExsist(3, 3) == false);
+  }
 }

@@ -8,7 +8,7 @@ class AdjacencyMatrixGraph : public BaseGraph
 {
 public:
   AdjacencyMatrixGraph()
-    : capacity_(10)
+    : capacity_(INITIAL_CAPACITY)
   {
     SetupMatrix(capacity_);
   }
@@ -31,12 +31,13 @@ public:
   std::size_t GetCapacity() const { return capacity_; }
   const std::vector<std::vector<int>>& matrix() const { return matrix_; }
 
-  bool IsCorrectNode(unsigned node) { return node >= 0 && node < capacity_; }
+  bool IsCorrectNodeIdx(unsigned node) { return node >= 0 && node < capacity_; }
   bool IsNodeExsist(unsigned node);
   bool IsEdgeExsist(unsigned base_node, unsigned target_node);
 
   static const int INFINITE = -1;
   static const int NODE_EXSISTS = 0;
+  static const int INITIAL_CAPACITY = 10;
 private:
   std::size_t capacity_;
 

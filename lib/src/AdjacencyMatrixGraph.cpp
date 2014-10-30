@@ -7,7 +7,7 @@ namespace Graphene {
 
 bool AdjacencyMatrixGraph::AddNode(unsigned node)
 {
-  if (IsCorrectNode(node)) {
+  if (IsCorrectNodeIdx(node)) {
     matrix_[node][node] = NODE_EXSISTS;
     return true;
   }
@@ -91,7 +91,7 @@ size_t AdjacencyMatrixGraph::GetEdgeCount() const
 
 bool AdjacencyMatrixGraph::IsNodeExsist(unsigned node)
 {
-  if (IsCorrectNode(node)) {
+  if (IsCorrectNodeIdx(node)) {
     return matrix_[node][node] == NODE_EXSISTS;
   }
   return false;
@@ -99,7 +99,7 @@ bool AdjacencyMatrixGraph::IsNodeExsist(unsigned node)
 
 bool AdjacencyMatrixGraph::IsEdgeExsist(unsigned base_node, unsigned target_node)
 {
-  if (IsNodeExsist(base_node) && IsNodeExsist(target_node)) {
+  if (IsNodeExsist(base_node) && IsNodeExsist(target_node) && base_node != target_node) {
     return matrix_[base_node][target_node] != INFINITE;
   }
   return false;
