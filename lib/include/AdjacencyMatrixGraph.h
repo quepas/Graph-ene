@@ -35,8 +35,6 @@ private:
   std::vector<std::vector<int>> matrix_;
 
   void ResizeMatrix(std::size_t capacity);
-  unsigned NodeToIndex(unsigned node) { return node - 1; }
-  unsigned IndexToNode(unsigned index) { return index + 1; }
 
 };
 

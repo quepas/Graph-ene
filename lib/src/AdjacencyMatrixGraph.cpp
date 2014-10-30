@@ -8,8 +8,7 @@ namespace Graphene {
 bool AdjacencyMatrixGraph::IsNodeExsist(unsigned node)
 {
   if (IsCorrectNode(node)) {
-    auto idx = NodeToIndex(node);
-    return matrix_[idx][idx] == NODE_EXSISTS;
+    return matrix_[node][node] == NODE_EXSISTS;
   }
   return false;
 }
@@ -17,7 +16,7 @@ bool AdjacencyMatrixGraph::IsNodeExsist(unsigned node)
 bool AdjacencyMatrixGraph::IsEdgeExsist(unsigned base_node, unsigned target_node)
 {
   if (IsNodeExsist(base_node) && IsNodeExsist(target_node)) {
-    return matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] != INFINITE;
+    return matrix_[base_node][target_node] != INFINITE;
   }
   return false;
 }
@@ -43,11 +42,11 @@ vector<unsigned> AdjacencyMatrixGraph::GetNeighbours(unsigned node)
 {
   vector<unsigned> result;
   if (IsNodeExsist(node)) {
-    auto idx = NodeToIndex(node);
+    auto idx = node;
     auto& row = matrix_[idx];
     for (unsigned i = 0; i < row.size(); ++i) {
       if (i != idx && row[i] != 0) {
-        result.push_back(IndexToNode(i));
+        result.push_back(i);
       }
     }
   }
@@ -57,41 +56,41 @@ vector<unsigned> AdjacencyMatrixGraph::GetNeighbours(unsigned node)
 bool AdjacencyMatrixGraph::RemoveEdge(unsigned base_node, unsigned target_node)
 {
   if (IsEdgeExsist(base_node, target_node)) {
-    matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] = INFINITE;
+    matrix_[base_node][target_node] = INFINITE;
     --edge_count_;
   }
   return false;
 }
 
-bool AdjacencyMatrixGraph::AddEdge(unsigned base_node, unsigned target_node, int value)
+bool AdjacencyMatrixGraph::AddEdge(unsigned base_node, unsigned target_node, int weight)
 {
   if (IsNodeExsist(base_node) && IsNodeExsist(target_node)) {
-    matrix_[NodeToIndex(base_node)][NodeToIndex(target_node)] = value;
+    matrix_[base_node][target_node] = weight;
     ++edge_count_;
   }
   return false;
 }
 
-bool AdjacencyMatrixGraph::RemoveNode(unsigned node_idx)
+bool AdjacencyMatrixGraph::RemoveNode(unsigned node)
 {
-  if (IsNodeExsist(node_idx)) {
+  if (IsNodeExsist(node)) {
     // remove 'node id' in row
-    for (auto& element : matrix_[node_idx]) {
+    for (auto& element : matrix_[node]) {
       element = INFINITE;
     }
     // remove 'node_idx' in column
     for (auto& rows : matrix_) {
-      rows[node_idx] = INFINITE;
+      rows[node] = INFINITE;
     }
     return true;
   }
   return false;
 }
 
-bool AdjacencyMatrixGraph::AddNode(unsigned node_idx)
+bool AdjacencyMatrixGraph::AddNode(unsigned node)
 {
-  if (IsCorrectNode(node_idx)) {
-    matrix_[node_idx][node_idx] = NODE_EXSISTS;
+  if (IsCorrectNode(node)) {
+    matrix_[node][node] = NODE_EXSISTS;
     return true;
   }
   return false;
