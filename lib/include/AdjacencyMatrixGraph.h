@@ -38,7 +38,6 @@ public:
   static const int INFINITE = -1;
   static const int NODE_EXSISTS = 0;
 private:
-  std::size_t edge_count_;
   std::size_t capacity_;
 
   std::vector<std::vector<int>> matrix_;

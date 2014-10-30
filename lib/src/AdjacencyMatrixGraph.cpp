@@ -34,7 +34,6 @@ bool AdjacencyMatrixGraph::AddEdge(unsigned base_node, unsigned target_node, int
 {
   if (IsNodeExsist(base_node) && IsNodeExsist(target_node)) {
     matrix_[base_node][target_node] = weight;
-    ++edge_count_;
   }
   return false;
 }
@@ -43,7 +42,6 @@ bool AdjacencyMatrixGraph::RemoveEdge(unsigned base_node, unsigned target_node)
 {
   if (IsEdgeExsist(base_node, target_node)) {
     matrix_[base_node][target_node] = INFINITE;
-    --edge_count_;
   }
   return false;
 }
