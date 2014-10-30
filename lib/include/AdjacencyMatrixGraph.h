@@ -8,12 +8,12 @@ class AdjacencyMatrixGraph : public BaseGraph
 {
 public:
   AdjacencyMatrixGraph()
-    : capacity_(10), edge_count_(0)
+    : capacity_(10)
   {
     SetupMatrix(capacity_);
   }
   AdjacencyMatrixGraph(std::size_t capacity)
-    : capacity_(capacity), edge_count_(0)
+    : capacity_(capacity)
   {
     SetupMatrix(capacity_);
   }
