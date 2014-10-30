@@ -20,17 +20,19 @@ public:
   std::size_t GetEdgeCount() const override { return edge_count_; }
   std::size_t GetNodeCount() const override;
   std::size_t GetCapacity() const { return capacity_; }
-  const std::vector<std::vector<unsigned>>& matrix() const { return matrix_; }
+  const std::vector<std::vector<int>>& matrix() const { return matrix_; }
 
-  bool IsCorrectNode(unsigned node) { return node > 0 && node <= capacity_; }
+  bool IsCorrectNode(unsigned node) { return node >= 0 && node < capacity_; }
   bool IsNodeExsist(unsigned node);
   bool IsEdgeExsist(unsigned base_node, unsigned target_node);
 
+  static const int INFINITE = -1;
+  static const int NODE_EXSISTS = 0;
 private:
   std::size_t edge_count_;
   std::size_t capacity_;
 
-  std::vector<std::vector<unsigned>> matrix_;
+  std::vector<std::vector<int>> matrix_;
 
   void ResizeMatrix(std::size_t capacity);
   unsigned NodeToIndex(unsigned node) { return node - 1; }
