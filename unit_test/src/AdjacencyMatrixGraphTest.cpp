@@ -21,4 +21,23 @@ TEST_CASE("Basic graph manipulation") {
     graph.AddNode(3);
     REQUIRE(graph.GetNodeCount() == 3);
   }
+
+  SECTION("Adding and removing edges") {
+    AdjacencyMatrixGraph graph;
+
+    graph.AddNode(1);
+    graph.AddNode(2);
+    graph.AddNode(3);
+    REQUIRE(graph.GetNodeCount() == 3);
+
+    graph.AddEdge(1, 3, 100);
+    graph.AddEdge(2, 3, 150);
+    REQUIRE(graph.GetNodeCount() == 3);
+    REQUIRE(graph.GetEdgeCount() == 2);
+
+    graph.RemoveEdge(1, 3);
+    REQUIRE(graph.GetEdgeCount() == 1);
+    graph.RemoveEdge(3, 1);
+    REQUIRE(graph.GetEdgeCount() == 1);
+  }
 }
