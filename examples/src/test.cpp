@@ -18,7 +18,7 @@ int main() {
   std::cout << "\nNode 3: " << graph.IsNodeExsist(3) << std::endl;
   graph.AddNode(9);
   std::cout << "Neighbours: ";
-  Graphene::PrintNodes(graph.GetNeighbours(3));
+  Graphene::PrintNodes(graph.GetAdjacentNodes(3));
 
   Graphene::PrintAdjacencyMatrix(graph);
 }
