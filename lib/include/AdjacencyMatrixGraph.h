@@ -23,8 +23,9 @@ public:
   bool AddEdge(unsigned base_node, unsigned target_node, int weight) override;
   bool RemoveEdge(unsigned base_node, unsigned target_node) override;
 
-  std::vector<unsigned> GetNeighbours(unsigned node) const override;
+  std::vector<unsigned> GetAdjacentNodes(unsigned node) const override;
   std::vector<Edge> GetIncidentEdges(unsigned node) const override;
+  int GetEdgeValue(unsigned base_node, unsigned target_node) const;
 
   std::size_t GetEdgeCount() const override;
   std::size_t GetNodeCount() const override;
@@ -33,7 +34,7 @@ public:
 
   bool IsCorrectNodeIdx(unsigned node) const { return node < capacity_; }
   bool IsNodeExsist(unsigned node) const;
-  bool IsEdgeExsist(unsigned base_node, unsigned target_node);
+  bool IsEdgeExsist(unsigned base_node, unsigned target_node) const;
 
   static const int INFINITE = -1;
   static const int NODE_EXSISTS = 0;

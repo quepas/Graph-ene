@@ -46,24 +46,41 @@ bool AdjacencyMatrixGraph::RemoveEdge(unsigned base_node, unsigned target_node)
   return false;
 }
 
-vector<unsigned> AdjacencyMatrixGraph::GetNeighbours(unsigned node) const
+vector<unsigned> AdjacencyMatrixGraph::GetAdjacentNodes(unsigned node) const
 {
-  vector<unsigned> result;
+  vector<unsigned> nodes;
   if (IsNodeExsist(node)) {
-    auto idx = node;
-    auto& row = matrix_[idx];
-    for (unsigned i = 0; i < row.size(); ++i) {
-      if (i != idx && row[i] != 0) {
-        result.push_back(i);
+    auto& row = matrix_[node];
+    for (unsigned i = 0; i < capacity_; ++i) {
+      if (i != node && row[i] != INFINITE) {
+        nodes.push_back(i);
       }
     }
   }
-  return result;
+  return nodes;
 }
 
 vector<Edge> AdjacencyMatrixGraph::GetIncidentEdges(unsigned node) const
 {
-  return vector<Edge>();
+  vector<Edge> edges;
+  if (IsNodeExsist(node)) {
+    auto adjacent_nodes = GetAdjacentNodes(node);
+    for (auto element : adjacent_nodes) {
+      edges.push_back({ node, element, GetEdgeValue(node, element) });
+    }
+    for (auto& row : matrix_) {
+      unsigned element = row[node];
+      if (element != INFINITE && element != NODE_EXSISTS) {
+        edges.push_back({ element, node, GetEdgeValue(element, node) });
+      }
+    }
+  }
+  return edges;
+}
+
+int AdjacencyMatrixGraph::GetEdgeValue(unsigned base_node, unsigned target_node) const
+{
+  return IsEdgeExsist(base_node, target_node) ? matrix_[base_node][target_node] : -1;
 }
 
 size_t AdjacencyMatrixGraph::GetNodeCount() const
@@ -97,7 +114,7 @@ bool AdjacencyMatrixGraph::IsNodeExsist(unsigned node) const
   return false;
 }
 
-bool AdjacencyMatrixGraph::IsEdgeExsist(unsigned base_node, unsigned target_node)
+bool AdjacencyMatrixGraph::IsEdgeExsist(unsigned base_node, unsigned target_node) const
 {
   if (IsNodeExsist(base_node) && IsNodeExsist(target_node) && base_node != target_node) {
     return matrix_[base_node][target_node] != INFINITE;
