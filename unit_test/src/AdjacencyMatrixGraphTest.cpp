@@ -88,4 +88,57 @@ TEST_CASE("Basic graph manipulation") {
     REQUIRE(graph.IsEdgeExsist(3, 1) == false);
     REQUIRE(graph.IsEdgeExsist(3, 3) == false);
   }
+
+  SECTION("Checking for neighboring edges/nodes") {
+    AdjacencyMatrixGraph graph;
+
+    graph.AddNode(1);
+    graph.AddNode(2);
+    graph.AddNode(3);
+
+    REQUIRE(graph.GetAdjacentNodes(-1).size() == 0);
+    REQUIRE(graph.GetAdjacentNodes(1).size() == 0);
+    REQUIRE(graph.GetAdjacentNodes(2).size() == 0);
+    REQUIRE(graph.GetAdjacentNodes(3).size() == 0);
+    REQUIRE(graph.GetAdjacentNodes(AdjacencyMatrixGraph::INFINITE).size() == 0);
+
+    graph.AddEdge(1, 2, 120);
+    graph.AddEdge(1, 3, 130);
+    graph.AddEdge(2, 3, 230);
+    auto neighbours = graph.GetAdjacentNodes(1);
+    REQUIRE(neighbours.size() == 2);
+    REQUIRE(neighbours[0] == 2);
+    REQUIRE(neighbours[1] == 3);
+    neighbours = graph.GetAdjacentNodes(2);
+    REQUIRE(neighbours.size() == 1);
+    REQUIRE(neighbours[0] == 3);
+    REQUIRE(graph.GetAdjacentNodes(3).size() == 0);
+
+    auto incidence_edges = graph.GetIncidentEdges(1);
+    REQUIRE(incidence_edges.size() == 2);
+    REQUIRE(incidence_edges[0].base_node == 1);
+    REQUIRE(incidence_edges[0].target_node == 2);
+    REQUIRE(incidence_edges[0].weight == 120);
+    REQUIRE(incidence_edges[1].base_node == 1);
+    REQUIRE(incidence_edges[1].target_node == 3);
+    REQUIRE(incidence_edges[1].weight == 130);
+
+    incidence_edges = graph.GetIncidentEdges(2);
+    REQUIRE(incidence_edges.size() == 2);
+    REQUIRE(incidence_edges[0].base_node == 2);
+    REQUIRE(incidence_edges[0].target_node == 3);
+    REQUIRE(incidence_edges[0].weight == 230);
+    REQUIRE(incidence_edges[1].base_node == 1);
+    REQUIRE(incidence_edges[1].target_node == 2);
+    REQUIRE(incidence_edges[1].weight == 120);
+
+    incidence_edges = graph.GetIncidentEdges(3);
+    REQUIRE(incidence_edges.size() == 2);
+    REQUIRE(incidence_edges[0].base_node == 1);
+    REQUIRE(incidence_edges[0].target_node == 3);
+    REQUIRE(incidence_edges[0].weight == 130);
+    REQUIRE(incidence_edges[1].base_node == 2);
+    REQUIRE(incidence_edges[1].target_node == 3);
+    REQUIRE(incidence_edges[1].weight == 230);
+  }
 }

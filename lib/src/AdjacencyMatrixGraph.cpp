@@ -68,10 +68,9 @@ vector<Edge> AdjacencyMatrixGraph::GetIncidentEdges(unsigned node) const
     for (auto element : adjacent_nodes) {
       edges.push_back({ node, element, GetEdgeValue(node, element) });
     }
-    for (auto& row : matrix_) {
-      unsigned element = row[node];
-      if (element != INFINITE && element != NODE_EXSISTS) {
-        edges.push_back({ element, node, GetEdgeValue(element, node) });
+    for (unsigned idx = 0; idx < capacity_; ++idx) {
+      if (idx != node && matrix_[idx][node] != INFINITE) {
+        edges.push_back({ idx, node, GetEdgeValue(idx, node) });
       }
     }
   }
