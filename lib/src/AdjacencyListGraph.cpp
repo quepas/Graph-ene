@@ -145,18 +145,5 @@ void AdjacencyListGraph::SetupList(std::size_t capacity)
   }
 }
 
-bool AdjacencyListGraph::IsDummyNode(EndNode end_node)
-{
-  return end_node.id == end_node.weight == -1;
-}
-
-std::list<EndNode>::iterator& AdjacencyListGraph::FindEndNode(int node, std::list<EndNode>& list)
-{
-  for (auto it = list.begin(); it != list.end(); ++it) {
-    if (it->id == node) return it;
-  }
-  return list.end();
-}
-
 }
 // ~~ Graphene::AdjacencyListGraph

@@ -7,8 +7,8 @@
 namespace Graphene {
 
 struct EndNode {
-  int id;
-  int weight;
+  unsigned id;
+  unsigned weight;
 };
 
 class AdjacencyListGraph : public BaseGraph
@@ -49,8 +49,6 @@ private:
   std::vector<bool> nodes_ex_;
 
   void SetupList(std::size_t capacity);
-  bool IsDummyNode(EndNode end_node);
-  std::list<EndNode>::iterator& FindEndNode(int node, std::list<EndNode>& list);
 };
 
 }
