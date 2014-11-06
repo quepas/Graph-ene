@@ -25,7 +25,7 @@ public:
 
   std::vector<unsigned> GetAdjacentNodes(unsigned node) const override;
   std::vector<Edge> GetIncidentEdges(unsigned node) const override;
-  int GetEdgeValue(unsigned base_node, unsigned target_node) const;
+  int GetEdgeValue(unsigned base_node, unsigned target_node) const override;
 
   std::size_t GetEdgeCount() const override;
   std::size_t GetNodeCount() const override;
@@ -36,9 +36,6 @@ public:
   bool IsNodeExsist(unsigned node) const;
   bool IsEdgeExsist(unsigned base_node, unsigned target_node) const;
 
-  static const int INFINITE = -1;
-  static const int NODE_EXSISTS = 0;
-  static const int INITIAL_CAPACITY = 10;
 private:
   std::size_t capacity_;
 
