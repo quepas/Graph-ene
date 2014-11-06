@@ -4,7 +4,7 @@
 
 using Graphene::AdjacencyMatrixGraph;
 
-TEST_CASE("Basic graph manipulation") {
+TEST_CASE("Basic matrix-based graph manipulation") {
   SECTION("Adding and removing nodes") {
     AdjacencyMatrixGraph graph;
 

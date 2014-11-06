@@ -4,7 +4,7 @@
 
 using Graphene::AdjacencyListGraph;
 
-TEST_CASE("Basic graph manipulation") {
+TEST_CASE("Basic list-based graph manipulation") {
   SECTION("Adding and removing nodes") {
     AdjacencyListGraph graph;
 
