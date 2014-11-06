@@ -7,14 +7,24 @@
 namespace Graphene {
 
 struct EndNode {
-  unsigned id;
-  unsigned weight;
+  int id;
+  int weight;
 };
 
 class AdjacencyListGraph : public BaseGraph
 {
 public:
-  AdjacencyListGraph() {}
+  AdjacencyListGraph() 
+    : capacity_(INITIAL_CAPACITY) 
+  {
+    SetupList(capacity_);
+  }
+
+  AdjacencyListGraph(std::size_t capacity) 
+    : capacity_(capacity) 
+  {
+    SetupList(capacity_);
+  }
 
   bool AddNode(unsigned node) override;
   bool RemoveNode(unsigned node) override;
@@ -26,12 +36,21 @@ public:
   int GetEdgeValue(unsigned base_node, unsigned target_node) const override;
   std::size_t GetEdgeCount() const override;
   std::size_t GetNodeCount() const override;
+  const std::vector<std::list<EndNode>>& list() const { return list_; }
 
+  bool IsCorrectNodeIdx(unsigned node) const { return node < capacity_; }
   bool IsNodeExsist(unsigned node) const override;
   bool IsEdgeExsist(unsigned base_node, unsigned target_node) const override;
 
 private:
+  std::size_t capacity_;
+
   std::vector<std::list<EndNode>> list_;
+  std::vector<bool> nodes_ex_;
+
+  void SetupList(std::size_t capacity);
+  bool IsDummyNode(EndNode end_node);
+  std::list<EndNode>::iterator& FindEndNode(int node, std::list<EndNode>& list);
 };
 
 }

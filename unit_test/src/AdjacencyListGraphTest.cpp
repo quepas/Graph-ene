@@ -63,12 +63,12 @@ TEST_CASE("Basic list-based graph manipulation") {
 
     graph.AddNode(1);
     graph.AddNode(3);
-    /*REQUIRE(graph.IsCorrectNodeIdx(-1) == false);
+    REQUIRE(graph.IsCorrectNodeIdx(-1) == false);
     REQUIRE(graph.IsCorrectNodeIdx(0));
     REQUIRE(graph.IsCorrectNodeIdx(1));
     REQUIRE(graph.IsCorrectNodeIdx(2));
     REQUIRE(graph.IsCorrectNodeIdx(3));
-    REQUIRE(graph.IsCorrectNodeIdx(AdjacencyListGraph::INITIAL_CAPACITY) == false); */
+    REQUIRE(graph.IsCorrectNodeIdx(AdjacencyListGraph::INITIAL_CAPACITY) == false);
 
     REQUIRE(graph.IsNodeExsist(-1) == false);
     REQUIRE(graph.IsNodeExsist(1));
