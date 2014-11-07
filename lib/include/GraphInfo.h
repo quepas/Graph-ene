@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GraphAlgorithm.h"
 #include "AdjacencyMatrixGraph.h"
 
 #include <iostream>
@@ -32,6 +33,16 @@ void PrintNodes(const std::vector<unsigned>& nodes)
     std::cout << node << " ";
   }
   std::cout << std::endl;
+}
+
+void PrintPath(const vector2d& prec, unsigned from, unsigned to) 
+{
+  std::string path = std::to_string(to);
+  while (from != to) {
+    path = std::to_string(prec[from][to]) + " " + path;
+    to = prec[from][to];
+  }
+  std::cout << "\n[" << path << "]" << std::endl;
 }
 
 }
