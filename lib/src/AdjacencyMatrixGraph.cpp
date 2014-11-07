@@ -152,5 +152,28 @@ vector<unsigned> AdjacencyMatrixGraph::GetNodes() const
   return nodes;
 }
 
+vector<Edge> AdjacencyMatrixGraph::GetEdges() const
+{
+  vector<Edge> edges;
+  auto nodes = GetNodes();
+  for (auto node : nodes) {
+    auto adjacent_edges = GetAdjacentEdges(node);
+    edges.assign(adjacent_edges.begin(), adjacent_edges.end());
+  }
+  return edges;
+}
+
+std::vector<Edge> AdjacencyMatrixGraph::GetAdjacentEdges(unsigned node) const
+{
+  vector<Edge> edges;
+  if (IsNodeExsist(node)) {
+    auto adjacent_nodes = GetAdjacentNodes(node);
+    for (auto element : adjacent_nodes) {
+      edges.push_back({ node, element, GetEdgeValue(node, element) });
+    }
+  }
+  return edges;
+}
+
 }
 // ~~ Graphene::AdjacencyMatrixGraph
