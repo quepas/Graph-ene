@@ -33,10 +33,7 @@ bool LoadGraph(std::string path, BaseGraph& graph) {
       max_node_id = a;
     if (b > max_node_id)
       max_node_id = b;
-    edges.push_back({ 
-      static_cast<unsigned>(a), 
-      static_cast<unsigned>(b), 
-      static_cast<unsigned>(c) });
+    edges.push_back({ static_cast<unsigned>(a), static_cast<unsigned>(b), c });
   }
   graph.Resize(max_node_id + 1);
   for (auto edge : edges) {
