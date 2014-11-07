@@ -32,7 +32,7 @@ public:
   virtual bool AreNodesAdjacent(unsigned base_node, unsigned target_node) const = 0;
   virtual bool AreNodesIncident(unsigned base_node, unsigned target_node) const = 0;
 
-  static const int INFINITE = -1;
+  static const int INFINITE = INT_MAX;
   static const int NODE_EXSISTS = 0;
   static const int INITIAL_CAPACITY = 10;
 
