@@ -67,14 +67,5 @@ void ResizeVector2d(vector2d& vector, unsigned first_dimension, unsigned second_
   }
 }
 
-void FillVector2d(vector2d& vector, int value)
-{
-  for (unsigned row = 0; row < vector.size(); ++row) {
-    for (unsigned col = 0; col < vector.size(); ++col) {
-      vector[row][col] = value;
-    }
-  }
-}
-
 }
 // ~~ Graphene::GraphAlgorithm
