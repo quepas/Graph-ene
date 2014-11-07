@@ -158,7 +158,10 @@ vector<Edge> AdjacencyMatrixGraph::GetEdges() const
   auto nodes = GetNodes();
   for (auto node : nodes) {
     auto adjacent_edges = GetAdjacentEdges(node);
-    edges.assign(adjacent_edges.begin(), adjacent_edges.end());
+    for (auto it = adjacent_edges.begin(); it != adjacent_edges.end(); ++it) {
+      edges.push_back(*it);
+    }
+    //edges.assign(adjacent_edges.begin(), adjacent_edges.end());
   }
   return edges;
 }
@@ -173,6 +176,11 @@ std::vector<Edge> AdjacencyMatrixGraph::GetAdjacentEdges(unsigned node) const
     }
   }
   return edges;
+}
+
+std::vector<unsigned> AdjacencyMatrixGraph::GetIncidentNodes(unsigned node) const
+{
+  return std::vector<unsigned>();
 }
 
 }

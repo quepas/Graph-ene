@@ -23,6 +23,7 @@ public:
   bool AddEdge(unsigned base_node, unsigned target_node, int weight) override;
   bool RemoveEdge(unsigned base_node, unsigned target_node) override;
 
+  std::vector<unsigned> GetIncidentNodes(unsigned node) const override;
   std::vector<unsigned> GetAdjacentNodes(unsigned node) const override;
   std::vector<Edge> GetIncidentEdges(unsigned node) const override;
   std::vector<Edge> GetAdjacentEdges(unsigned node) const override;
@@ -40,6 +41,10 @@ public:
   bool IsEdgeExsist(unsigned base_node, unsigned target_node) const;
   bool AreNodesAdjacent(unsigned base_node, unsigned target_node) const override;
   bool AreNodesIncident(unsigned base_node, unsigned target_node) const override;
+
+  void Resize(std::size_t node_capacity) {
+    SetupMatrix(node_capacity);
+  }
 
 private:
   std::size_t capacity_;

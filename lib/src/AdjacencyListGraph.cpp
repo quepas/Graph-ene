@@ -182,9 +182,17 @@ std::vector<Edge> AdjacencyListGraph::GetEdges() const
   auto nodes = GetNodes();
   for (auto node : nodes) {
     auto adjacent_edges = GetAdjacentEdges(node);
-    edges.assign(adjacent_edges.begin(), adjacent_edges.end());
+    for (auto it = adjacent_edges.begin(); it != adjacent_edges.end(); ++it) {
+      edges.push_back(*it);
+    }
+    //edges.assign(adjacent_edges.begin(), adjacent_edges.end());
   }
   return edges;
+}
+
+std::vector<unsigned> AdjacencyListGraph::GetIncidentNodes(unsigned node) const
+{
+  return vector<unsigned>();
 }
 
 }
