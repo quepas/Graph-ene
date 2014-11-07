@@ -102,9 +102,23 @@ TEST_CASE("Basic list-based graph manipulation") {
     REQUIRE(graph.GetAdjacentNodes(3).size() == 0);
     REQUIRE(graph.GetAdjacentNodes(AdjacencyListGraph::INFINITE).size() == 0);
 
+    REQUIRE(graph.AreNodesAdjacent(1, 2) == false);
+    REQUIRE(graph.AreNodesAdjacent(2, 1) == false);
+    REQUIRE(graph.AreNodesAdjacent(3, 3) == false);
+
     graph.AddEdge(1, 2, 120);
     graph.AddEdge(1, 3, 130);
     graph.AddEdge(2, 3, 230);
+
+    REQUIRE(graph.AreNodesAdjacent(1, 2));
+    REQUIRE(graph.AreNodesAdjacent(2, 3));
+    REQUIRE(graph.AreNodesAdjacent(2, 1) == false);
+    REQUIRE(graph.AreNodesAdjacent(3, 2) == false);
+    REQUIRE(graph.AreNodesIncident(1, 2));
+    REQUIRE(graph.AreNodesIncident(2, 1));
+    REQUIRE(graph.AreNodesIncident(2, 3));
+    REQUIRE(graph.AreNodesIncident(3, 2));
+
     auto neighbours = graph.GetAdjacentNodes(1);
     REQUIRE(neighbours.size() == 2);
     REQUIRE(neighbours[0] == 2);
