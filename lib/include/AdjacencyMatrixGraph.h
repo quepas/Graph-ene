@@ -35,6 +35,8 @@ public:
   bool IsCorrectNodeIdx(unsigned node) const { return node < capacity_; }
   bool IsNodeExsist(unsigned node) const;
   bool IsEdgeExsist(unsigned base_node, unsigned target_node) const;
+  bool AreNodesAdjacent(unsigned base_node, unsigned target_node) const override;
+  bool AreNodesIncident(unsigned base_node, unsigned target_node) const override;
 
 private:
   std::size_t capacity_;

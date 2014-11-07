@@ -7,7 +7,7 @@ namespace Graphene {
 
 bool AdjacencyListGraph::AddNode(unsigned node)
 {
-  if (IsCorrectNodeIdx(node)) {
+  if (IsCorrectNodeIdx(node) && !IsNodeExsist(node)) {
     nodes_ex_[node] = true;
     return true;
   }
@@ -46,7 +46,7 @@ bool AdjacencyListGraph::RemoveEdge(unsigned base_node, unsigned target_node)
   if (IsNodeExsist(base_node) && IsNodeExsist(target_node)) {
     auto& row = list_[base_node];
     for (auto it = row.begin(); it != row.end(); ++it) {
-      if (it->id = target_node) {
+      if (it->id == target_node) {
         row.erase(it); 
         return true;
       }
@@ -143,6 +143,16 @@ void AdjacencyListGraph::SetupList(std::size_t capacity)
   for (unsigned idx = 0; idx < capacity_; ++idx) {
     nodes_ex_.push_back(false);
   }
+}
+
+bool AdjacencyListGraph::AreNodesAdjacent(unsigned base_node, unsigned target_node) const
+{
+  return IsEdgeExsist(base_node, target_node);
+}
+
+bool AdjacencyListGraph::AreNodesIncident(unsigned base_node, unsigned target_node) const
+{
+  return IsEdgeExsist(base_node, target_node) || IsEdgeExsist(target_node, base_node);
 }
 
 }

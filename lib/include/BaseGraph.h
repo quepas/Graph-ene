@@ -28,6 +28,8 @@ public:
 
   virtual bool IsNodeExsist(unsigned node) const = 0;
   virtual bool IsEdgeExsist(unsigned base_node, unsigned target_node) const = 0;
+  virtual bool AreNodesAdjacent(unsigned base_node, unsigned target_node) const = 0;
+  virtual bool AreNodesIncident(unsigned base_node, unsigned target_node) const = 0;
 
   static const int INFINITE = -1;
   static const int NODE_EXSISTS = 0;
