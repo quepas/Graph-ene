@@ -155,5 +155,14 @@ bool AdjacencyListGraph::AreNodesIncident(unsigned base_node, unsigned target_no
   return IsEdgeExsist(base_node, target_node) || IsEdgeExsist(target_node, base_node);
 }
 
+vector<unsigned> AdjacencyListGraph::GetNodes() const
+{
+  vector<unsigned> nodes;
+  for (unsigned idx = 0; idx < capacity_; ++idx) {
+    if (IsNodeExsist(idx)) nodes.push_back(idx);
+  }
+  return nodes;
+}
+
 }
 // ~~ Graphene::AdjacencyListGraph

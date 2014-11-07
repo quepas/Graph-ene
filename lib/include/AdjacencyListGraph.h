@@ -31,6 +31,7 @@ public:
   bool AddEdge(unsigned base_node, unsigned target_node, int weight) override;
   bool RemoveEdge(unsigned base_node, unsigned target_node) override;
 
+  std::vector<unsigned> GetNodes() const override;
   std::vector<unsigned> GetAdjacentNodes(unsigned node) const override;
   std::vector<Edge> GetIncidentEdges(unsigned node) const override;
   int GetEdgeValue(unsigned base_node, unsigned target_node) const override;

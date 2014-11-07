@@ -20,6 +20,7 @@ public:
   virtual bool AddEdge(unsigned base_node, unsigned target_node, int weight) = 0;
   virtual bool RemoveEdge(unsigned base_node, unsigned target_node) = 0;
 
+  virtual std::vector<unsigned> GetNodes() const = 0;
   virtual std::vector<unsigned> GetAdjacentNodes(unsigned node) const = 0;
   virtual std::vector<Edge> GetIncidentEdges(unsigned node) const = 0;
   virtual int GetEdgeValue(unsigned base_node, unsigned target_node) const = 0;
