@@ -42,7 +42,17 @@ void PrintPath(const vector2d& prec, unsigned from, unsigned to)
     path = std::to_string(prec[from][to]) + " " + path;
     to = prec[from][to];
   }
-  std::cout << "\n[" << path << "]" << std::endl;
+  std::cout << "\tPath: [" << path << "]" << std::endl;
+}
+
+void PrintPath(const std::vector<int>& prec, unsigned from, unsigned to)
+{
+  std::string path = std::to_string(to);
+  while (from != to) {
+    path = std::to_string(prec[to]) + " " + path;
+    to = prec[to];
+  }
+  std::cout << "\tPath: [" << path << "]" << std::endl;
 }
 
 }
