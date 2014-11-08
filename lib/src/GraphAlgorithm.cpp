@@ -59,6 +59,36 @@ void Floyd_Warshall(const BaseGraph& graph, vector2d& distances_vec, vector2d& p
   }
 }
 
+void Bellman_Ford(const BaseGraph& graph, std::vector<int>& distances_vec, std::vector<int>& predecessors, unsigned source) {
+  auto all_nodes = graph.GetNodes();
+  size_t node_count = all_nodes.size();
+  auto all_edges = graph.GetEdges();
+
+  distances_vec.resize(node_count);
+  predecessors.resize(node_count);
+
+  int* weight = new int[node_count];
+  int* pred = new int[node_count];
+  // Step 1: initialize graph
+  for (auto node : all_nodes) {
+    if (node == source) weight[node] = 0;
+    else weight[node] = BaseGraph::INFINITE;
+    pred[node] = -1;
+  }
+  // Step 2: relax edges repeatedly
+  for (unsigned i = 0; i < node_count; ++i) {
+    for (auto edge : all_edges) {
+      if (weight[edge.base_node] + edge.weight < weight[edge.target_node]) {
+        weight[edge.target_node] = weight[edge.base_node] + edge.weight;
+        pred[edge.target_node] = edge.base_node;
+      }
+    }
+  }
+  distances_vec.assign(weight, weight + node_count);
+  predecessors.assign(pred, pred + node_count);
+  // step 3: no implementation for checking negative-weight cycles
+}
+
 void ResizeVector2d(vector2d& vector, unsigned first_dimension, unsigned second_dimension)
 {
   vector.resize(first_dimension + 1);
