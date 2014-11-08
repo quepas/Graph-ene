@@ -7,31 +7,49 @@
 #include "AdjacencyListGraph.h"
 #include "TimeWatch.h"
 
-int main() {
-  Graphene::AdjacencyMatrixGraph graph;
-  Graphene::LoadGraph("data/big_graph.txt", graph);
+void DisplayStats(double time, int distance);
 
-  Graphene::vector2d d;
-  Graphene::vector2d prec;
-  Graphene::TimeWatch watch;
-  Graphene::Floyd_Warshall(graph, d, prec);
+int main() {
+  const unsigned FROM = 109;
+  const unsigned TO = 609;
 
   std::cout << "\n--------------- AdjacencyMatrixGraph ---------------" << std::endl;
-  std::cout << "Elapsed seconds: " << watch.Stop() << "s" << std::endl;
-  std::cout << "Distance: " << d[109][609] << std::endl;
-  Graphene::PrintPath(prec, 109, 609);
+  Graphene::AdjacencyMatrixGraph matrix_graph;
+  Graphene::LoadGraph("data/big_graph.txt", matrix_graph);
 
-  Graphene::AdjacencyListGraph graph2;
-  Graphene::LoadGraph("data/big_graph.txt", graph2);
+  std::cout << "\n### Floyd-Warshall ###" << std::endl;
+  Graphene::vector2d distances;
+  Graphene::vector2d predecessors;
+  Graphene::TimeWatch watch;
+  Graphene::Floyd_Warshall(matrix_graph, distances, predecessors);
+  DisplayStats(watch.Stop(), distances[FROM][TO]);
+  Graphene::PrintPath(predecessors, FROM, TO);
 
-  Graphene::vector2d d2;
-  Graphene::vector2d prec2;
-  Graphene::TimeWatch watch2;
-  Graphene::Floyd_Warshall(graph2, d2, prec2);
+  std::cout << "\n### Bellman-Ford ###" << std::endl;
+  std::vector<int> weight, pred;
+  watch.Reset();
+  Graphene::Bellman_Ford(matrix_graph, weight, pred, FROM);
+  DisplayStats(watch.Stop(), weight[TO]);
+  Graphene::PrintPath(pred, FROM, TO);
 
   std::cout << "\n--------------- AdjacencyListGraph ---------------" << std::endl;
-  std::cout << "Elapsed seconds: " << watch2.Stop() << "s" << std::endl;
-  std::cout << "Distance: " << d2[109][609] << std::endl;
-  Graphene::PrintPath(prec2, 109, 609);
+  Graphene::AdjacencyListGraph list_graph;
+  Graphene::LoadGraph("data/big_graph.txt", list_graph);
 
+  std::cout << "\n### Floyd-Warshall ###" << std::endl;
+  watch.Reset();
+  Graphene::Floyd_Warshall(list_graph, distances, predecessors);
+  DisplayStats(watch.Stop(), distances[FROM][TO]);
+  Graphene::PrintPath(predecessors, FROM, TO);
+
+  std::cout << "\n### Bellman-Ford ###" << std::endl;
+  watch.Reset();
+  Graphene::Bellman_Ford(list_graph, weight, pred, FROM);
+  DisplayStats(watch.Stop(), weight[TO]);
+  Graphene::PrintPath(pred, FROM, TO);
+}
+
+void DisplayStats(double time, int distance) {
+  std::cout << "\tElapsed seconds: " << time << "s" << std::endl;
+  std::cout << "\tDistance: " << distance << std::endl;
 }
