@@ -34,7 +34,7 @@ public:
   std::size_t GetEdgeCount() const override;
   std::size_t GetNodeCount() const override;
   std::size_t GetCapacity() const { return capacity_; }
-  const std::vector<std::vector<int>>& matrix() const { return matrix_; }
+  int** const matrix() const { return matrix_; }
 
   bool IsCorrectNodeIdx(unsigned node) const { return node < capacity_; }
   bool IsNodeExsist(unsigned node) const;
@@ -48,8 +48,7 @@ public:
 
 private:
   std::size_t capacity_;
-
-  std::vector<std::vector<int>> matrix_;
+  int** matrix_;
 
   void SetupMatrix(std::size_t capacity);
 

@@ -15,13 +15,13 @@ void PrintNodes(const std::vector<unsigned>& nodes);
 void PrintAdjacencyMatrix(const AdjacencyMatrixGraph& graph)
 {
   unsigned row_counter = 0;
-  for (auto& row : graph.matrix()) {
+  for (unsigned i = 0; i < graph.GetCapacity(); ++i) {
     std::cout << row_counter++ << ": ";
-    for (auto& col : row) {
-      if (col == AdjacencyMatrixGraph::INFINITE)
+    for (unsigned j = 0; j < graph.GetCapacity(); ++j) {
+      if (graph.matrix()[i][j] == AdjacencyMatrixGraph::INFINITE)
         std::cout << "Inf" << " ";
       else
-        std::cout << col << " ";
+        std::cout << j << " ";
     }
     std::cout << std::endl;
   }

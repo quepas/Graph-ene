@@ -17,13 +17,13 @@ bool AdjacencyMatrixGraph::AddNode(unsigned node)
 bool AdjacencyMatrixGraph::RemoveNode(unsigned node)
 {
   if (IsNodeExsist(node)) {
-    // remove 'node id' in row
-    for (auto& element : matrix_[node]) {
-      element = INFINITE;
+    // remove node in row
+    for (unsigned idx = 0; idx < capacity_; ++idx) {
+      matrix_[node][idx] = INFINITE;
     }
-    // remove 'node_idx' in column
-    for (auto& rows : matrix_) {
-      rows[node] = INFINITE;
+    // remove node in column
+    for (unsigned idx = 0; idx < capacity_; ++idx) {
+      matrix_[node][idx] = INFINITE;
     }
     return true;
   }
@@ -124,9 +124,12 @@ bool AdjacencyMatrixGraph::IsEdgeExsist(unsigned base_node, unsigned target_node
 void AdjacencyMatrixGraph::SetupMatrix(size_t capacity)
 {
   capacity_ = capacity;
-  matrix_.resize(capacity_);
+  matrix_ = new int*[capacity_];
+  for (unsigned idx = 0; idx < capacity_; ++idx) {
+    matrix_[idx] = new int[capacity_];
+  }
+
   for (unsigned i = 0; i < capacity_; ++i) {
-    matrix_[i].resize(capacity_);
     for (unsigned j = 0; j < capacity_; ++j) {
       matrix_[i][j] = INFINITE;
     }
