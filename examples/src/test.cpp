@@ -22,14 +22,16 @@ int main() {
   Graphene::vector2d predecessors;
   Graphene::TimeWatch watch;
   Graphene::Floyd_Warshall(matrix_graph, distances, predecessors);
-  DisplayStats(watch.Stop(), distances[FROM][TO]);
+  double floyd_warshall_matrix_time = watch.Stop();
+  DisplayStats(floyd_warshall_matrix_time, distances[FROM][TO]);
   Graphene::PrintPath(predecessors, FROM, TO);
 
   std::cout << "\n### Bellman-Ford ###" << std::endl;
   std::vector<int> weight, pred;
   watch.Reset();
   Graphene::Bellman_Ford(matrix_graph, weight, pred, FROM);
-  DisplayStats(watch.Stop(), weight[TO]);
+  double bellman_ford_matrix_time = watch.Stop();
+  DisplayStats(bellman_ford_matrix_time, weight[TO]);
   Graphene::PrintPath(pred, FROM, TO);
 
   std::cout << "\n--------------- AdjacencyListGraph ---------------" << std::endl;
@@ -39,14 +41,19 @@ int main() {
   std::cout << "\n### Floyd-Warshall ###" << std::endl;
   watch.Reset();
   Graphene::Floyd_Warshall(list_graph, distances, predecessors);
-  DisplayStats(watch.Stop(), distances[FROM][TO]);
+  double floyd_warshall_list_time = watch.Stop();
+  DisplayStats(floyd_warshall_list_time, distances[FROM][TO]);
   Graphene::PrintPath(predecessors, FROM, TO);
 
   std::cout << "\n### Bellman-Ford ###" << std::endl;
   watch.Reset();
   Graphene::Bellman_Ford(list_graph, weight, pred, FROM);
-  DisplayStats(watch.Stop(), weight[TO]);
+  double bellman_ford_list_time = watch.Stop();
+  DisplayStats(bellman_ford_list_time, weight[TO]);
   Graphene::PrintPath(pred, FROM, TO);
+
+  std::cout << "\nStats:\n\tFloyd-Warshall R: " << floyd_warshall_list_time / floyd_warshall_matrix_time << std::endl;
+  std::cout << "\tBellman-Ford R: " << bellman_ford_list_time / bellman_ford_matrix_time << std::endl;
 }
 
 void DisplayStats(double time, int distance) {
