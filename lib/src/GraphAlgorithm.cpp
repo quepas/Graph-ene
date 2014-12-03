@@ -1,9 +1,15 @@
 #include "GraphAlgorithm.h"
 
 #include <algorithm>
+#include <queue>
+#include <set>
 #include <iostream>
 
+using std::cout;
+using std::endl;
 using std::size_t;
+using std::set;
+using std::queue;
 
 namespace Graphene {
 
@@ -15,12 +21,9 @@ void Floyd_Warshall(const BaseGraph& graph, vector2d& distances_vec, vector2d& p
   ResizeVector2d(predecessors, node_count, node_count);
 
   int** dist = new int*[node_count];
-  for (int i = 0; i < node_count; ++i) {
-    dist[i] = new int[node_count];
-  }
-
   int** prec = new int*[node_count];
   for (int i = 0; i < node_count; ++i) {
+    dist[i] = new int[node_count];
     prec[i] = new int[node_count];
   }
 
@@ -67,26 +70,30 @@ void Bellman_Ford(const BaseGraph& graph, std::vector<int>& distances_vec, std::
   distances_vec.resize(node_count);
   predecessors.resize(node_count);
 
-  int* weight = new int[node_count];
+  int* dist = new int[node_count];
   int* pred = new int[node_count];
   // Step 1: initialize graph
   for (auto node : all_nodes) {
-    if (node == source) weight[node] = 0;
-    else weight[node] = BaseGraph::INFINITE;
+    if (node == source) dist[node] = 0;
+    else dist[node] = BaseGraph::INFINITE;
     pred[node] = -1;
   }
   // Step 2: relax edges repeatedly
   for (unsigned i = 0; i < node_count; ++i) {
     for (auto edge : all_edges) {
-      if (weight[edge.base_node] + edge.weight < weight[edge.target_node]) {
-        weight[edge.target_node] = weight[edge.base_node] + edge.weight;
+      if (dist[edge.base_node] + edge.weight < dist[edge.target_node]) {
+        dist[edge.target_node] = dist[edge.base_node] + edge.weight;
         pred[edge.target_node] = edge.base_node;
       }
     }
   }
-  distances_vec.assign(weight, weight + node_count);
+  distances_vec.assign(dist, dist + node_count);
   predecessors.assign(pred, pred + node_count);
   // step 3: no implementation for checking negative-weight cycles
+}
+
+void Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target, unsigned**& capacity, unsigned**& floating)
+{
 }
 
 void ResizeVector2d(vector2d& vector, unsigned first_dimension, unsigned second_dimension)
@@ -94,6 +101,44 @@ void ResizeVector2d(vector2d& vector, unsigned first_dimension, unsigned second_
   vector.resize(first_dimension + 1);
   for (auto& row : vector) {
     row.resize(second_dimension + 1);
+  }
+}
+
+void Breadth_First_Search(const BaseGraph& graph, unsigned start, int*& parents)
+{
+  auto num_node = graph.GetNodeCount();
+  parents = new int[num_node]();
+
+  queue<unsigned> to_visit;
+  set<unsigned> visited;
+
+  visited.insert(start);
+  to_visit.push(start);
+
+  unsigned current;
+  while (!to_visit.empty()) {
+    current = to_visit.front();
+    to_visit.pop();
+
+    for (Edge edge : graph.GetAdjacentEdges(current)) {
+      unsigned child = edge.target_node;
+      if (visited.find(child) == visited.end()) {
+        visited.insert(child);
+        to_visit.push(child);
+        parents[child] = current;
+      }
+    }
+  }
+}
+
+void FindBFSPath(int*& parents, int start, int end, std::vector<unsigned>& path) {
+  if ((start == end) || (end == -1)) {
+    path.push_back(start);
+    std::reverse(path.begin(), path.end());
+  }
+  else {
+    path.push_back(end);
+    FindBFSPath(parents, start, parents[end], path);
   }
 }
 
