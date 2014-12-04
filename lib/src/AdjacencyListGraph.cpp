@@ -195,5 +195,15 @@ std::vector<unsigned> AdjacencyListGraph::GetIncidentNodes(unsigned node) const
   return vector<unsigned>();
 }
 
+void AdjacencyListGraph::SetEdgeValue(unsigned base_node, unsigned target_node, int value)
+{
+  if (IsEdgeExsist(base_node, target_node)) {
+    auto& row = list_[base_node];
+    for (auto& node : row) {
+      if (node.id == target_node) node.weight = value;
+    }
+  }
+}
+
 }
 // ~~ Graphene::AdjacencyListGraph

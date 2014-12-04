@@ -186,5 +186,10 @@ std::vector<unsigned> AdjacencyMatrixGraph::GetIncidentNodes(unsigned node) cons
   return std::vector<unsigned>();
 }
 
+void AdjacencyMatrixGraph::SetEdgeValue(unsigned base_node, unsigned target_node, int value)
+{
+  if (IsEdgeExsist(base_node, target_node)) matrix_[base_node][target_node] = value;
+}
+
 }
 // ~~ Graphene::AdjacencyMatrixGraph

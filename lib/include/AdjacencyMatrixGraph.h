@@ -18,6 +18,13 @@ public:
     SetupMatrix(capacity_);
   }
 
+  ~AdjacencyMatrixGraph() {
+    for (unsigned idx = 0; idx < capacity_; ++idx) {
+      delete [] matrix_[idx];
+    }
+    delete [] matrix_;
+  }
+
   bool AddNode(unsigned node) override;
   bool RemoveNode(unsigned node) override;
   bool AddEdge(unsigned base_node, unsigned target_node, int weight) override;
@@ -28,6 +35,7 @@ public:
   std::vector<Edge> GetIncidentEdges(unsigned node) const override;
   std::vector<Edge> GetAdjacentEdges(unsigned node) const override;
   int GetEdgeValue(unsigned base_node, unsigned target_node) const override;
+  void SetEdgeValue(unsigned base_node, unsigned target_node, int value) override;
 
   std::vector<unsigned> GetNodes() const override;
   std::vector<Edge> GetEdges() const override;

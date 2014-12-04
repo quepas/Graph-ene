@@ -38,6 +38,7 @@ public:
   std::vector<Edge> GetIncidentEdges(unsigned node) const override;
   std::vector<Edge> GetAdjacentEdges(unsigned node) const override;
   int GetEdgeValue(unsigned base_node, unsigned target_node) const override;
+  void SetEdgeValue(unsigned base_node, unsigned target_node, int value) override;
   std::size_t GetEdgeCount() const override;
   std::size_t GetNodeCount() const override;
   const std::vector<std::list<EndNode>>& list() const { return list_; }
