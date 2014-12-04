@@ -8,6 +8,7 @@
 #include "TimeWatch.h"
 
 void DisplayStats(double time, int distance);
+void DisplayMaxFlowStats(double time, int max_flow);
 
 int main() {
   const unsigned FROM = 109;
@@ -34,6 +35,12 @@ int main() {
   DisplayStats(bellman_ford_matrix_time, weight[TO]);
   Graphene::PrintPath(pred, FROM, TO);
 
+  std::cout << "\n### Ford-Fulkerson ###" << std::endl;
+  watch.Reset();
+  int max_flow = Graphene::Ford_Fulkerson(matrix_graph, FROM, TO);
+  double ff_matrix_time = watch.Stop();
+  DisplayMaxFlowStats(ff_matrix_time, max_flow);
+
   std::cout << "\n--------------- AdjacencyListGraph ---------------" << std::endl;
   Graphene::AdjacencyListGraph list_graph;
   Graphene::LoadGraph("data/big_graph.txt", list_graph);
@@ -52,11 +59,25 @@ int main() {
   DisplayStats(bellman_ford_list_time, weight[TO]);
   Graphene::PrintPath(pred, FROM, TO);
 
+  std::cout << "\n### Ford-Fulkerson ###" << std::endl;
+  watch.Reset();
+  max_flow = Graphene::Ford_Fulkerson(list_graph, FROM, TO);
+  double ff_list_time = watch.Stop();
+  DisplayMaxFlowStats(ff_list_time, max_flow);
+
   std::cout << "\nStats:\n\tFloyd-Warshall R: " << floyd_warshall_list_time / floyd_warshall_matrix_time << std::endl;
   std::cout << "\tBellman-Ford R: " << bellman_ford_list_time / bellman_ford_matrix_time << std::endl;
+  std::cout << "\tFord-Fulkerson R: " << ff_list_time / ff_matrix_time << std::endl;
+
+  getchar();
 }
 
 void DisplayStats(double time, int distance) {
   std::cout << "\tElapsed seconds: " << time << "s" << std::endl;
   std::cout << "\tDistance: " << distance << std::endl;
+}
+
+void DisplayMaxFlowStats(double time, int max_flow) {
+  std::cout << "\tElapsed seconds: " << time << "s" << std::endl;
+  std::cout << "\tMax flow: " << max_flow << std::endl;
 }

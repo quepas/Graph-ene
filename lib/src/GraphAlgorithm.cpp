@@ -102,8 +102,9 @@ void PrintEdgePath(const std::vector<Edge>& edges) {
   std::cout << "]\n";
 }
 
-int Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target, int**& capacity, int**& floating)
+int Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target)
 {
+  int** capacity, **floating;
   auto num_node = graph.GetNodeCount();
   Initialize2DArray(capacity, num_node+1, 0);
   Initialize2DArray(floating, num_node+1, 0);
@@ -114,27 +115,30 @@ int Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target, int
     }
   }
   do {
-    AdjacencyMatrixGraph cgraph;
-    cgraph.Resize(num_node);
+    BaseGraph* cgraph = graph.Create();
+    cgraph->Resize(num_node);
     for (auto edge : graph.GetEdges()) {
       int v1 = edge.base_node;
       int v2 = edge.target_node;
-     
+
       auto flow = floating[v1][v2];
       auto cap = capacity[v1][v2];
       if (flow < cap) {
-        cgraph.AddNode(v1);
-        cgraph.AddNode(v2);
-        cgraph.AddEdge(v1, v2, cap-flow);
+        cgraph->AddNode(v1);
+        cgraph->AddNode(v2);
+        cgraph->AddEdge(v1, v2, cap - flow);
       }
     }
     // Find path p
     std::vector<Edge> edges_path;
-    FindFirstPathBFS(cgraph, source, target, edges_path);
+    FindFirstPathBFS(*cgraph, source, target, edges_path);
+    delete cgraph;
     if (edges_path.empty()) {
       int sum = 0;
       for (auto edge : graph.GetAdjacentEdges(source))
         sum += floating[edge.base_node][edge.target_node];
+      Delete2DArray(capacity, num_node + 1);
+      Delete2DArray(floating, num_node + 1);
       return sum;
     }
     // Find minumum
@@ -150,6 +154,8 @@ int Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target, int
       floating[v2][v1] -= flow;
     }
   } while (true);
+  Delete2DArray(capacity, num_node + 1);
+  Delete2DArray(floating, num_node + 1);
   return -1;
 }
 

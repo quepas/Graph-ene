@@ -8,7 +8,7 @@ typedef std::vector<std::vector<int>> vector2d;
 
 void Floyd_Warshall(const BaseGraph& graph, vector2d& dist, vector2d& predecessors);
 void Bellman_Ford(const BaseGraph& graph, std::vector<int>& distances_vec, std::vector<int>& predecessors, unsigned source);
-int Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target, int**& capacity, int**& floating);
+int Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target);
 
 void FindFirstPathBFS(const BaseGraph& graph, unsigned source, unsigned target, std::vector<Edge>& path);
 void RetrivePathFromBFS(int*& parents, int start, int end, std::vector<unsigned>& path);

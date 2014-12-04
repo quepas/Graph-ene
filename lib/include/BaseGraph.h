@@ -36,6 +36,8 @@ public:
   virtual bool IsEdgeExsist(unsigned base_node, unsigned target_node) const = 0;
   virtual bool AreNodesAdjacent(unsigned base_node, unsigned target_node) const = 0;
   virtual bool AreNodesIncident(unsigned base_node, unsigned target_node) const = 0;
+  virtual BaseGraph* Copy() const = 0;
+  virtual BaseGraph* Create() const = 0;
 
   virtual void Resize(std::size_t node_capacity) = 0;
 

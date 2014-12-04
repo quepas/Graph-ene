@@ -50,6 +50,9 @@ public:
   bool AreNodesAdjacent(unsigned base_node, unsigned target_node) const override;
   bool AreNodesIncident(unsigned base_node, unsigned target_node) const override;
 
+  AdjacencyMatrixGraph* Copy() const { return new AdjacencyMatrixGraph(*this); }
+  AdjacencyMatrixGraph* Create() const { return new AdjacencyMatrixGraph(); }
+
   void Resize(std::size_t node_capacity) {
     SetupMatrix(node_capacity);
   }

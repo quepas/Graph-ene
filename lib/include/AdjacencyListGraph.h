@@ -49,6 +49,9 @@ public:
   bool AreNodesAdjacent(unsigned base_node, unsigned target_node) const override;
   bool AreNodesIncident(unsigned base_node, unsigned target_node) const override;
 
+  AdjacencyListGraph* Copy() const { return new AdjacencyListGraph(*this); }
+  AdjacencyListGraph* Create() const { return new AdjacencyListGraph(); }
+
   void Resize(std::size_t node_capacity) {
     SetupList(node_capacity);
   }
