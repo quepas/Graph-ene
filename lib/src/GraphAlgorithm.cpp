@@ -6,6 +6,8 @@
 #include <string>
 #include <iostream>
 
+#include "TimeWatch.h"
+
 using std::cout;
 using std::endl;
 using std::size_t;
@@ -115,6 +117,7 @@ int Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target)
     }
   }
   do {
+    TimeWatch watch;
     BaseGraph* cgraph = graph.Create();
     cgraph->Resize(num_node);
     for (auto edge : graph.GetEdges()) {
@@ -129,9 +132,14 @@ int Ford_Fulkerson(const BaseGraph& graph, unsigned source, unsigned target)
         cgraph->AddEdge(v1, v2, cap - flow);
       }
     }
+    double time = watch.Stop();
+    std::cout << "Creation of new graph time: " << time << std::endl;
     // Find path p
     std::vector<Edge> edges_path;
+    watch.Reset();
     FindFirstPathBFS(*cgraph, source, target, edges_path);
+    time = watch.Stop();
+    std::cout << "Finding new path: " << time << std::endl;
     delete cgraph;
     if (edges_path.empty()) {
       int sum = 0;
